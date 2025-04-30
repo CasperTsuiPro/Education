@@ -92,15 +92,28 @@ re.split(r'\d', 'a1b2c3')  # ['a', 'b', 'c', '']
 
 ## Collections Module
 ```python
-from collections import namedtuple, Counter, defaultdict
+from collections import namedtuple, Counter, defaultdict, deque, ChainMap
 
+# Namedtuple
 Point = namedtuple('Point', ['x', 'y'])
 p = Point(1, 2)  # Point(x=1, y=2)
 
+# Counter
 c = Counter('hello')  # Counter({'h': 1, 'e': 1, 'l': 2, 'o': 1})
 
+# Defaultdict
 dd = defaultdict(int)
 dd['a'] += 1  # defaultdict(<class 'int'>, {'a': 1})
+
+# Deque
+d = deque([1, 2, 3])
+d.append(4)  # deque([1, 2, 3, 4])
+d.appendleft(0)  # deque([0, 1, 2, 3, 4])
+
+# ChainMap
+d1 = {'a': 1, 'b': 2}
+d2 = {'c': 3, 'd': 4}
+ChainMap(d1, d2)  # ChainMap({'a': 1, 'b': 2}, {'c': 3, 'd': 4})
 ```
 
 ## File Handling
