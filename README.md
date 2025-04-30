@@ -1,5 +1,5 @@
 # Education
 
-## Python
+## Welcome to my study notes repository
 
-Frequenctly Used Patterns
+Should you have any suggestions, please let [me](https://www.linkedin.com/in/caspertsui/ "https://www.linkedin.com/in/caspertsui/") know 😊
