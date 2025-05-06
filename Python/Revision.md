@@ -1,96 +1,198 @@
-- [Python Cheatsheet](#python-cheatsheet)
-  - [Built-in Functions](#built-in-functions)
-  - [List Operations](#list-operations)
-  - [Dictionary Operations](#dictionary-operations)
-  - [String Methods](#string-methods)
-  - [Regex Basics](#regex-basics)
-  - [Collections Module](#collections-module)
-  - [File Handling](#file-handling)
-  - [Error Handling](#error-handling)
-  - [Context Managers](#context-managers)
-  - [Decorators](#decorators)
-  - [OOP Basics](#oop-basics)
-    - [Encapsulation](#encapsulation)
-    - [Inheritance](#inheritance)
-    - [Polymorphism](#polymorphism)
-    - [Abstraction](#abstraction)
-  - [Datetime](#datetime)
-  - [Pandas Basics](#pandas-basics)
+- [Built-in Functions](#built-in-functions)
+- [Shorthand If Else](#shorthand-if-else)
+- [List Operations](#list-operations)
+  - [List Comprehensions](#list-comprehensions)
+- [Dictionary Operations](#dictionary-operations)
+  - [Dictionary Comprehensions](#dictionary-comprehensions)
+- [String Methods](#string-methods)
+- [Itertools](#itertools)
+- [Regex](#regex)
+- [Collections](#collections)
+- [File Handling](#file-handling)
+- [Error Handling](#error-handling)
+- [Context Managers](#context-managers)
+- [Decorators](#decorators)
+- [OOP](#oop)
+  - [Encapsulation](#encapsulation)
+  - [Inheritance](#inheritance)
+  - [Polymorphism](#polymorphism)
+  - [Abstraction](#abstraction)
+- [Datetime](#datetime)
+- [Pandas Basics](#pandas-basics)
 
-# Python Cheatsheet
+Python Cheatsheet
 
-## Built-in Functions
+# Built-in Functions
+
 ```python
 # Common built-ins
-abs(-5)  # 5
-all([True, True, False])  # False
-any([False, False, True])  # True
-bool(1)  # True
-chr(65)  # 'A'
-dict(a=1, b=2)  # {'a': 1, 'b': 2}
-divmod(7, 3)  # (2, 1)
-enumerate(['a', 'b'])  # [(0, 'a'), (1, 'b')]
-filter(lambda x: x > 0, [-1, 0, 1])  # [1]
-map(lambda x: x*2, [1, 2, 3])  # [2, 4, 6]
-max([1, 2, 3])  # 3
-min([1, 2, 3])  # 1
-range(5)  # [0, 1, 2, 3, 4]
-reversed([1, 2, 3])  # [3, 2, 1]
-sorted([3, 1, 2])  # [1, 2, 3]
-sum([1, 2, 3])  # 6
-zip([1, 2], ['a', 'b'])  # [(1, 'a'), (2, 'b')]
+abs(-5)                             # 5
+all([True, True, False])            # False
+any([False, False, True])           # True
+bool(1)                             # True
+chr(65)                             # 'A'
+dict(a=1, b=2)                      # {'a': 1, 'b': 2}
+divmod(7, 3)                        # (2, 1)
+enumerate(['a', 'b'])               # [(0, 'a'), (1, 'b')]
+filter(lambda x: x > 0, [-1, 0, 1]) # [1]
+map(lambda x: x*2, [1, 2, 3])       # [2, 4, 6]
+max([1, 2, 3])                      # 3
+min([1, 2, 3])                      # 1
+range(5)                            # [0, 1, 2, 3, 4]
+reversed([1, 2, 3])                 # [3, 2, 1]
+sorted([3, 1, 2])                   # [1, 2, 3]
+sum([1, 2, 3])                      # 6
+zip([1, 2], ['a', 'b'])             # [(1, 'a'), (2, 'b')]
 ```
 
-## List Operations
+# Shorthand If Else
+
+```python
+x = 10
+y = 20
+z = x if x > y else y # Assign x to z if x is greater than y, otherwise assign y to z
+```
+
+# List Operations
+
 ```python
 lst = [1, 2, 3]
-lst.append(4)  # [1, 2, 3, 4]
+lst.append(4)       # [1, 2, 3, 4]
 lst.extend([5, 6])  # [1, 2, 3, 4, 5, 6]
-lst.insert(0, 0)  # [0, 1, 2, 3, 4, 5, 6]
-lst.remove(0)  # [1, 2, 3, 4, 5, 6]
-lst.pop()  # 6, lst becomes [1, 2, 3, 4, 5]
-lst.index(2)  # 1
-lst.count(2)  # 1
-lst.sort()  # [1, 2, 3, 4, 5]
-lst.reverse()  # [5, 4, 3, 2, 1]
+lst.insert(0, 0)    # [0, 1, 2, 3, 4, 5, 6]
+lst.remove(0)       # [1, 2, 3, 4, 5, 6]
+lst.pop()           # 6, lst becomes [1, 2, 3, 4, 5]
+lst.index(2)        # 1
+lst.count(2)        # 1
+lst.sort()          # [1, 2, 3, 4, 5]
+lst.reverse()       # [5, 4, 3, 2, 1]
 ```
 
-## Dictionary Operations
+## List Comprehensions
+
+```python
+[ x**2 for x in range(10) ]           # [0, 1, 4, 9, 16, 25, 36, 49, 64, 81]
+[ x for x in range(10) if x % 2 == 0 ] # [0, 2, 4, 6, 8]
+
+# Nested List Comprehensions
+matrix = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
+[ [ row[i] for row in matrix ] for i in range(3) ] # [[1, 4, 7], [2, 5, 8], [3, 6, 9]]
+
+# Dictionary Comprehensions
+{ x: x**2 for x in range(10) } # {0: 0, 1: 1, 2: 4, 3: 9, 4: 16, 5: 25, 6: 36, 7: 49, 8: 64, 9: 81}
+
+# Set Comprehensions
+{ x for x in range(10) if x % 2 == 0 } # {0, 2, 4, 6, 8}
+
+# Generator Expressions
+( x**2 for x in range(10) ) # <generator object <genexpr> at 0x1006a3040>
+list(x**2 for x in range(10)) # [0, 1, 4, 9, 16, 25, 36, 49, 64, 81]
+
+# Comprehensions with Multiple Iterables (Loop y and then x)
+[ (x, y) for x in range(3) for y in range(3) ] # [(0, 0), (0, 1), (0, 2), (1, 0), (1, 1), (1, 2), (2, 0), (2, 1), (2, 2)]
+
+# Comprehensions with Conditional Logic
+[ x if x % 2 == 0 else -x for x in range(10) ] # [0, -1, 2, -3, 4, -5, 6, -7, 8, -9]
+
+# Comprehensions with Multiple Conditions
+[ (x, y) for x in range(3) for y in range(3) if x != y ] # [(0, 1), (0, 2), (1, 0), (1, 2), (2, 0), (2, 1)]
+
+# Comprehensions with Nested Iterables
+matrix = [ [1, 2, 3], [4, 5, 6], [7, 8, 9] ]
+[ [ matrix[j][i] for j in range(len(matrix)) ] for i in range(len(matrix[0])) ] # [[1, 4, 7], [2, 5, 8], [3, 6, 9]]
+
+# Comprehensions with Nested Iterables and Conditional Logic
+matrix = [ [1, 2, 3], [4, 5, 6], [7, 8, 9] ]
+[ [ matrix[j][i] for j in range(len(matrix)) if matrix[j][i] % 2 == 0 ] for i in range(len(matrix[0])) ] # [[2], [4, 6], [8]]
+```
+
+# Dictionary Operations
+
 ```python
 d = {'a': 1, 'b': 2}
-d.keys()  # dict_keys(['a', 'b'])
-d.values()  # dict_values([1, 2])
-d.items()  # dict_items([('a', 1), ('b', 2)])
-d.get('a')  # 1
-d.get('c', 0)  # 0
-d.pop('a')  # 1, d becomes {'b': 2}
-d.update({'c': 3})  # d becomes {'b': 2, 'c': 3}
+d.keys()               # dict_keys(['a', 'b'])
+d.values()             # dict_values([1, 2])
+d.items()              # dict_items([('a', 1), ('b', 2)])
+d.get('a')             # 1
+d.get('c', 0)          # 0
+d.pop('a')             # 1, d becomes {'b': 2}
+d.update({'c': 3})     # d becomes {'b': 2, 'c': 3}
 ```
 
-## String Methods
+## Dictionary Comprehensions
+
 ```python
-s = 'hello world'
-s.split()  # ['hello', 'world']
-'-'.join(['hello', 'world'])  # 'hello-world'
-s.replace('l', 'L')  # 'heLLo'
-'  hello  '.strip()  # 'hello'
-'Hello'.lower()  # 'hello'
-'hello'.upper()  # 'HELLO'
-'hello'.isalpha()  # True
-'123'.isdigit()  # True
+{x: x**2 for x in range(10)}                                   # {0: 0, 1: 1, 2: 4, 3: 9, 4: 16, 5: 25, 6: 36, 7: 49, 8: 64, 9: 81}
+
+# Dictionary Comprehensions with Conditional Logic
+{x: 'even' if x % 2 == 0 else 'odd' for x in range(10)}        # {0: 'even', 1: 'odd', 2: 'even', 3: 'odd', 4: 'even', 5: 'odd', 6: 'even', 7: 'odd', 8: 'even', 9: 'odd'}
+
+# Dictionary Comprehensions with Multiple Iterables
+{x: y for x in range(3) for y in range(3)}                     # {0: 0, 0: 1, 0: 2, 1: 0, 1: 1, 1: 2, 2: 0, 2: 1, 2: 2}
+
+# Dictionary Comprehensions with Nested Iterables
+matrix = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
+{i: [row[i] for row in matrix] for i in range(len(matrix[0]))} # {0: [1, 4, 7], 1: [2, 5, 8], 2: [3, 6, 9]}
+
+# Dictionary Comprehensions with Nested Iterables and Conditional Logic
+matrix = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
+{i: [row[i] for row in matrix if row[i] % 2 == 0] for i in range(len(matrix[0]))} # {0: [2, 4, 6, 8], 1: [2, 4, 6, 8], 2: [2, 4, 6, 8]}
 ```
 
-## Regex Basics
+# String Methods
+
 ```python
-import re
-re.match(r'hello', 'hello world')  # match object
-re.search(r'world', 'hello world')  # match object
-re.findall(r'\d', 'a1b2c3')  # ['1', '2', '3']
-re.sub(r'\d', 'X', 'a1b2c3')  # 'aXbXcX'
-re.split(r'\d', 'a1b2c3')  # ['a', 'b', 'c', '']
+'hello world'.count('l')              # 3
+'hello world'.split()                 # ['hello', 'world']
+'-'.join(['hello', 'world'])          # 'hello-world'
+'hello world'.replace('l', 'L')       # 'heLLo'
+'  hello  '.strip()                   # 'hello'
+'Hello'.lower()                       # 'hello'
+'hello'.upper()                       # 'HELLO'
+'hello'.isalpha()                     # False
+'123'.isdigit()                       # True
+'hello world'.startswith('h')         # True
+'hello world'.endswith('o')           # False
+'hello world'.find('o')               # 4
+'hello world'.index('o')              # 4
+'hello world'.rfind('o')              # 7
+'hello world'.rindex('o')             # 7
+'hello world'.ljust(20, '*')          # 'hello world********'
+'hello world'.rjust(20, '*')          # '********hello world'
+'hello world'.center(20, '*')         # '****hello world****'
+'hello world'.zfill(20)               # '00000000000000000hello world'
 ```
 
-## Collections Module
+# Itertools
+
+```python
+from itertools import *
+
+count(start=1, step=2)                        # 1, 3, 5, 7, 9, ...
+cycle('ABC')                                  # A, B, C, A, B, C, ...
+repeat('hello', times=3)                      # hello, hello, hello
+chain('ABC', 'DEF')                           # A, B, C, D, E, F
+accumulate([1, 2, 3, 4, 5])                   # 1, 3, 6, 10, 15
+groupby([1, 2, 3, 4, 5], key=lambda x: x % 2) # {0: [2, 4], 1: [1, 3, 5]}
+product([1, 2, 3], [4, 5, 6])                 # (1, 4), (1, 5), (1, 6), (2, 4), (2, 5), (2, 6), (3, 4), (3, 5), (3, 6)
+permutations([1, 2, 3])                       # (1, 2, 3), (1, 3, 2), (2, 1, 3), (2, 3, 1), (3, 1, 2), (3, 2, 1)
+combinations([1, 2, 3], 2)                    # (1, 2), (1, 3), (2, 3)
+combinations_with_replacement([1, 2, 3], 2)   # (1, 1), (1, 2), (1, 3), (2, 2), (2, 3), (3, 3)
+```
+
+# Regex
+
+```python
+from re import *
+match(r'hello', 'hello world')   # <re.Match object; span=(0, 5), match='hello'>
+search(r'world', 'hello world')  # <re.Match object; span=(6, 11), match='world'>
+findall(r'\d', 'a1b2c3')  # ['1', '2', '3']
+sub(r'\d', 'X', 'a1b2c3')  # 'aXbXcX'
+split(r'\d', 'a1b2c3')  # ['a', 'b', 'c', ''] ⚠️ str.split() does not support regex
+```
+
+# Collections
+
 ```python
 from collections import namedtuple, Counter, defaultdict, deque, ChainMap
 
@@ -116,7 +218,8 @@ d2 = {'c': 3, 'd': 4}
 ChainMap(d1, d2)  # ChainMap({'a': 1, 'b': 2}, {'c': 3, 'd': 4})
 ```
 
-## File Handling
+# File Handling
+
 ```python
 # Reading
 with open('file.txt', 'r') as f:
@@ -131,7 +234,8 @@ with open('file.txt', 'a') as f:
     f.write('\nWorld')
 ```
 
-## Error Handling
+# Error Handling
+
 ```python
 try:
     result = 10 / 0
@@ -143,7 +247,8 @@ finally:
     print("Cleanup")
 ```
 
-## Context Managers
+# Context Managers
+
 ```python
 class MyContext:
     def __enter__(self):
@@ -156,7 +261,8 @@ with MyContext():
     print("Inside")
 ```
 
-## Decorators
+# Decorators
+
 ```python
 def my_decorator(func):
     def wrapper(*args, **kwargs):
@@ -171,12 +277,13 @@ def say_hello():
     print("Hello!")
 ```
 
-## OOP Basics
+# OOP
+
 ```python
 class Animal:
     def __init__(self, name):
         self.name = name
-    
+  
     def speak(self):
         return "Sound"
 
@@ -191,7 +298,9 @@ class Shape(ABC):
     def area(self):
         pass
 ```
-### Encapsulation
+
+## Encapsulation
+
 ```python
 class BankAccount:
     def __init__(self, owner, balance=0):
@@ -206,12 +315,13 @@ class BankAccount:
             print("Insufficient funds")
         else:
             self.__balance -= amount
-            
+          
     def get_balance(self):
         return self.__balance
 ```
 
-### Inheritance
+## Inheritance
+
 ```python
 class SavingsAccount(BankAccount):
     def __init__(self, owner, balance=0, interest_rate=0.01):
@@ -219,7 +329,8 @@ class SavingsAccount(BankAccount):
         self.interest_rate = interest_rate
 ```
 
-### Polymorphism
+## Polymorphism
+
 ```python
 class Animal:
     def speak(self):
@@ -237,7 +348,8 @@ for animal in animals:
     print(animal.speak())  # Output: Woof! and Meow!
 ```
 
-### Abstraction
+## Abstraction
+
 ```python
 class Animal:
     def speak(self):
@@ -258,7 +370,8 @@ print(dog.speak())  # Output: Woof!
 print(cat.speak())  # Output: Meow!
 ```
 
-## Datetime
+# Datetime
+
 ```python
 from datetime import datetime, timedelta
 
@@ -267,7 +380,8 @@ formatted = now.strftime("%Y-%m-%d %H:%M:%S")
 tomorrow = now + timedelta(days=1)
 ```
 
-## Pandas Basics
+# Pandas Basics
+
 ```python
 import pandas as pd
 
