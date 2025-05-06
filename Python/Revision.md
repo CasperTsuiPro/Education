@@ -1,3 +1,4 @@
+- [Python Cheatsheet](#python-cheatsheet)
 - [Built-in Functions](#built-in-functions)
 - [Shorthand If Else](#shorthand-if-else)
 - [List Operations](#list-operations)
@@ -20,7 +21,7 @@
 - [Datetime](#datetime)
 - [Pandas Basics](#pandas-basics)
 
-Python Cheatsheet
+# Python Cheatsheet
 
 # Built-in Functions
 
