@@ -6,13 +6,18 @@
 - [Dictionary Operations](#dictionary-operations)
   - [Dictionary Comprehensions](#dictionary-comprehensions)
 - [String Methods](#string-methods)
+- [Function](#function)
+  - [Default Return Type is None or Tuple](#default-return-type-is-none-or-tuple)
+  - [\*args](#args)
+  - [\*\*kwargs](#kwargs)
+- [Decorators](#decorators)
 - [Itertools](#itertools)
 - [Regex](#regex)
+  - [Backward and Forward Lookahead and Lookbehind](#backward-and-forward-lookahead-and-lookbehind)
 - [Collections](#collections)
 - [File Handling](#file-handling)
 - [Error Handling](#error-handling)
 - [Context Managers](#context-managers)
-- [Decorators](#decorators)
 - [OOP](#oop)
   - [Encapsulation](#encapsulation)
   - [Inheritance](#inheritance)
@@ -110,14 +115,16 @@ matrix = [ [1, 2, 3], [4, 5, 6], [7, 8, 9] ]
 # Dictionary Operations
 
 ```python
-d = {'a': 1, 'b': 2}
-d.keys()               # dict_keys(['a', 'b'])
-d.values()             # dict_values([1, 2])
-d.items()              # dict_items([('a', 1), ('b', 2)])
-d.get('a')             # 1
-d.get('c', 0)          # 0
-d.pop('a')             # 1, d becomes {'b': 2}
-d.update({'c': 3})     # d becomes {'b': 2, 'c': 3}
+d = {'a': 1, 'b': 2, 'c': 3}
+for key in d: print(key) # a b c ⚠️ Default is keys only
+print(*d)                # a b c ⚠️ Default is keys only
+d.keys()                 # dict_keys(['a', 'b', 'c'])
+d.values()               # dict_values([1, 2, 3])
+d.items()                # dict_items([('a', 1), ('b', 2), ('c', 3)])
+d.get('a')               # 1
+d.get('c', 0)            # 3
+d.pop('a')               # 1, d becomes {'b': 2, 'c': 3}
+d.update({'c': 3})       # d becomes {'b': 2, 'c': 3}
 ```
 
 ## Dictionary Comprehensions
@@ -147,6 +154,7 @@ matrix = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
 'hello world'.split()                 # ['hello', 'world']
 '-'.join(['hello', 'world'])          # 'hello-world'
 'hello world'.replace('l', 'L')       # 'heLLo'
+'hello world'.sub(r'l', lambda x: x.group().upper()) # 'heLLo world'.  ⚠️ Support regex and function for replacement
 '  hello  '.strip()                   # 'hello'
 'Hello'.lower()                       # 'hello'
 'hello'.upper()                       # 'HELLO'
@@ -162,6 +170,55 @@ matrix = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
 'hello world'.rjust(20, '*')          # '********hello world'
 'hello world'.center(20, '*')         # '****hello world****'
 'hello world'.zfill(20)               # '00000000000000000hello world'
+```
+
+# Function
+⚠️ Always return a value.
+## Default Return Type is None or Tuple
+```python
+def my_function(): return
+print(my_function()) # None
+
+def my_function(): return 1, 2, 3
+print(my_function()) # (1, 2, 3)
+```
+
+## \*args
+*args is used to pass a variable number of Positional arguments to a function.
+args can be any name, but it is conventional to use args.
+
+```python
+def my_function(*args):
+    print(args)
+
+my_function(1, 2, 3) # (1, 2, 3)
+```
+
+## **kwargs
+**kwargs is used to pass a variable number of Keyword arguments to a function.
+kwargs can be any name, but it is conventional to use kwargs.
+
+```python
+def my_function(**kwargs):
+    print(kwargs)
+
+my_function(a=1, b=2, c=3) # {'a': 1, 'b': 2, 'c': 3}
+```
+
+# Decorators
+
+```python
+def my_decorator(func):
+    def wrapper(*args, **kwargs):
+        print("Before")
+        result = func(*args, **kwargs)
+        print("After")
+        return result
+    return wrapper
+
+@my_decorator
+def say_hello():
+    print("Hello!")
 ```
 
 # Itertools
@@ -190,6 +247,28 @@ search(r'world', 'hello world')  # <re.Match object; span=(6, 11), match='world'
 findall(r'\d', 'a1b2c3')  # ['1', '2', '3']
 sub(r'\d', 'X', 'a1b2c3')  # 'aXbXcX'
 split(r'\d', 'a1b2c3')  # ['a', 'b', 'c', ''] ⚠️ str.split() does not support regex
+```
+
+## Backward and Forward Lookahead and Lookbehind
+Remind that lookahead and lookbehind are zero-width assertions.
+```python
+import re
+
+# Backward Lookahead
+# Replace 'world' with 'everyone' only if it is preceded by 'hello'
+re.sub(r'(?<=hello )world', 'everyone', 'hello world')  # 'hello everyone'
+
+# Forward Lookahead
+# Replace 'hello' with 'hi' only if it is followed by 'world'
+re.sub(r'hello(?= world)', 'hi', 'hello world')  # 'hi world'
+
+# Negative Lookahead
+# Replace 'world' with 'everyone' only if it is not preceded by 'hello'
+re.sub(r'world(?! hello)', 'everyone', 'hello world')  # 'hello everyone'
+
+# Negative Lookbehind
+# Replace 'world' with 'everyone' only if it is not preceded by 'hello'
+re.sub(r'(?<!hello) world', 'everyone', 'hello world')  # 'hello everyone'
 ```
 
 # Collections
@@ -260,22 +339,6 @@ class MyContext:
 
 with MyContext():
     print("Inside")
-```
-
-# Decorators
-
-```python
-def my_decorator(func):
-    def wrapper(*args, **kwargs):
-        print("Before")
-        result = func(*args, **kwargs)
-        print("After")
-        return result
-    return wrapper
-
-@my_decorator
-def say_hello():
-    print("Hello!")
 ```
 
 # OOP
